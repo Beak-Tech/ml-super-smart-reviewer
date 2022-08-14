@@ -3,7 +3,7 @@ from transformers import AutoTokenizer
 
 tokenizer = AutoTokenizer.from_pretrained("roberta-large") 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-path='model_new.pt'
+path='model_v2.pt'
 
 model=torch.load(path)
 
