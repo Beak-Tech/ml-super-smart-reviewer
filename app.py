@@ -1,5 +1,10 @@
 import torch
 from transformers import AutoTokenizer
+import gdown
+
+url='https://drive.google.com/uc?id=1Nw0wAccsGJY2T27j-xDAGE1Kc_WZ-7_X'
+output = 'model_v2.pt'
+gdown.download(url, output, quiet=False)
 
 tokenizer = AutoTokenizer.from_pretrained("roberta-large") 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
