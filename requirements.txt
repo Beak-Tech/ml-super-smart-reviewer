@@ -1,4 +1,9 @@
+###### Requirements without Version Specifiers ######
+
+  gdown
+
 ###### Requirements with Version Specifiers ######
 
-torch == 1.12.0
-transformers == 4.21.1
+  torch == 1.12.0
+  transformers == 4.21.1
+   
