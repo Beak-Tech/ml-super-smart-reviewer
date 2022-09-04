@@ -1,6 +1,3 @@
-#dfs not suitable, alter: level constraint added 
-#tag category
-#direct parent relation
 from urllib.request import urlopen
 from urllib.parse import urlparse
 from urllib.parse import urljoin
@@ -9,14 +6,12 @@ import mechanicalsoup
 from bs4 import BeautifulSoup
 import sys
 import io
-sys.stdout=io.TextIOWrapper(sys.stdout.buffer, encoding='gb18030')
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='gb18030')
 
-#home="http://woodleyparkarchers.org/"
-#home="https://www.ranchoparkarchers.org/"
-home="https://topgolf.com/us/"
-url_que=[]
+home = "<website homepage url>"
+url_que = []
 browser=mechanicalsoup.StatefulBrowser()
-roof=1 #level top
+roof = 1 #level top
 file=open('content.txt', 'w', encoding='utf-8')
 
 def is_absolute(url):
@@ -30,12 +25,12 @@ def text_extract(page):
     for script in soup(["script", "style"]):
         script.extract() 
 
-    tags=[]
+    tags = []
     for tag in soup.find_all(string=True):
         if(len(tag.text.strip('\n')) > 1):
             tags.append(tag)
 
-    content=[[tags[0], tag.text.strip()]]
+    content = [[tags[0], tag.text.strip()]]
     for i in range(1, len(tags)):
         tag=tags[i]
         #print(tag.parent.name, tag.parent.parent.name, tags[i-1].parent.name)
@@ -44,7 +39,6 @@ def text_extract(page):
             if(tag.parent in content[-1][0].parents): #now >= past || else: now <= past
                 content[-1][0]=tag
         else:
-            #line=tag.parent.name+' : '+tag.text.strip()
             line=[tag, tag.text.strip()]
             content.append(line)
 
@@ -60,18 +54,18 @@ def text_extract(page):
 def link_extract(url, page):
     
     try:
-        links=[tag.get('href') for tag in page.find_all('a')]
+        links = [tag.get('href') for tag in page.find_all('a')]
     except:
         return
 
     for i in range(len(links)):
         if(not is_absolute(links[i])):
-            links[i]=urljoin(url,links[i])
+            links[i] = urljoin(url,links[i])
     
     return links
 
 def is_external(url):
-    keywords=['instagram', 'twitter', 'tiktok', 'facebook', 'youtube', 'apple', 'google']
+    keywords = ['instagram', 'twitter', 'tiktok', 'facebook', 'youtube', 'apple', 'google']
     for word in keywords:
         if(word in url):
             return True
